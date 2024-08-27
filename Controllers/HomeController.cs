@@ -23,8 +23,8 @@ public class HomeController : Controller
         {
             return Redirect("Authen");
         }
-        var url = "https://service.talkfirst.vn/v1/api/student/lesson/current-week?";
-        //var url = "https://service.talkfirst.vn/v1/api/student/lesson/next-week?";
+        //var url = "https://service.talkfirst.vn/v1/api/student/lesson/current-week?";
+        var url = "https://service.talkfirst.vn/v1/api/student/lesson/next-week?";
         var response = await _apiHelper.GetAsync<ResponseBase<List<ClassModel>>>(url);
 
         var jwtToken = _httpContextAccessor.HttpContext.Session.GetString("AccessToken");
