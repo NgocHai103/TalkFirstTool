@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using System.Text.Json;
-using TF_ClassRegistry.Data;
 using TF_ClassRegistry.Helper;
-using TF_ClassRegistry.Models;
 using TF_ClassRegistry.Services;
 
 namespace TF_ClassRegistry.Controllers;
@@ -27,11 +24,11 @@ public class AuthenController : Controller
     {
         try
         {
-            if(username.IsNullOrEmpty() || password.IsNullOrEmpty())
+            if (username.IsNullOrEmpty() || password.IsNullOrEmpty())
             {
                 ViewBag.Error = "Invalid username or password";
                 return View();
-            }    
+            }
 
             var token = await _authenService.AuthenticateAndGetToken(username, password);
 

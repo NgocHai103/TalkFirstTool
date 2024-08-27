@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-public class Configuration
+﻿public class Configuration
 {
     public int Slot { get; set; }
     public Manager Manager { get; set; }

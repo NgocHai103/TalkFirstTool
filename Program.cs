@@ -1,14 +1,8 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.DataProtection.KeyManagement;
-using Microsoft.IdentityModel.Tokens;
-using TF_ClassRegistry.Helper;
-using TF_ClassRegistry.Services;
 using Quartz;
-using Quartz.Impl;
-using Quartz.Spi;
-using Microsoft.Extensions.DependencyInjection;
-using TF_ClassRegistry.Quatz;
 using Serilog;
+using TF_ClassRegistry.Helper;
+using TF_ClassRegistry.Quatz;
+using TF_ClassRegistry.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

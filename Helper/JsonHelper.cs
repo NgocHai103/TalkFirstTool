@@ -1,5 +1,4 @@
-﻿using System.IdentityModel.Tokens.Jwt;
-using System.Text.Json;
+﻿using System.Text.Json;
 
 namespace TF_ClassRegistry.Helper;
 

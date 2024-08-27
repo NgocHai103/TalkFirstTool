@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TF_ClassRegistry.Data;
 using TF_ClassRegistry.Models;
@@ -57,7 +56,7 @@ public class RegisterController : ControllerBase
                                 Code = "500",
                                 Message = "1 lớp main class thôi bé!"
                             };
-                        } 
+                        }
                         else if (listClasses.Any(x => x.SyllabusId == request.SyllabusId))
                         {
                             return new ResponseBase<RegistryReponse>
