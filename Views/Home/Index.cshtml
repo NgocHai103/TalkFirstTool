@@ -1,0 +1,351 @@
+﻿@using TF_ClassRegistry.Helper
+@{
+    ViewData["Title"] = "Home Page";
+}
+@model List<ClassModel>;
+
+@{
+    var dates = new Func<DateTime, DateTime>[] {
+        DayHelper.GetMondayOfCurrentWeek,
+        DayHelper.GetTuesdayOfCurrentWeek,
+        DayHelper.GetWednesdayOfCurrentWeek,
+        DayHelper.GetThursdayOfCurrentWeek,
+        DayHelper.GetFridayOfCurrentWeek,
+        DayHelper.GetSaturdayOfCurrentWeek,
+        DayHelper.GetSundayOfCurrentWeek
+    };
+
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch trình</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+        }
+
+            .tab button {
+                background-color: inherit;
+                float: left;
+                border: none;
+                outline: none;
+                cursor: pointer;
+                padding: 14px 16px;
+                transition: 0.3s;
+                font-size: 17px;
+            }
+
+                .tab button:hover {
+                    background-color: #ddd;
+                }
+
+                .tab button.active {
+                    background-color: #ccc;
+                }
+
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            border-top: none;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .time-slot {
+            background-color: #e6f7ff;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Nhật tay vịn!!</h2>
+
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'MainClass')" id="defaultOpen">Main-Class</button>
+        <button class="tablinks" onclick="openTab(event, 'FreeTalk')">Free-Talk</button>
+        <button class="tablinks" onclick="openTab(event, 'SkillsActivities')">Skills & Activities</button>
+    </div>
+
+    <div id="MainClass" class="tabcontent">
+        <h3>Main-Class</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Khung giờ</th>
+                    <th>Thứ Hai</th>
+                    <th>Thứ Ba</th>
+                    <th>Thứ Tư</th>
+                    <th>Thứ Năm</th>
+                    <th>Thứ Sáu</th>
+                    <th>Thứ Bảy</th>
+                    <th>Chủ Nhật</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="time-slot">8:50 - 10:20</td>
+                    @for (var i = 0; i < 7; i++)
+                    {
+                        <td>
+                            @foreach (var classS in @Model.Where(x => x.ClassType.Key == "MAIN-CLASS" && x.ClassTimeId.Key == "08:50-10:20" && x.TimeSchedule.Date == dates[i](x.FromDate).Date))
+                            {
+                                @Html.Partial("./ClassCart", classS)
+                            }
+                        </td>
+                    }
+                </tr>
+                <tr>
+                    <td class="time-slot">10:30 - 12:00</td>
+                    @for (var i = 0; i < 7; i++)
+                    {
+                        <td>
+                            @foreach (var classS in @Model.Where(x => x.ClassType.Key == "MAIN-CLASS" && x.ClassTimeId.Key == "10:30-12:00" && x.TimeSchedule.Date == dates[i](x.FromDate).Date))
+                            {
+                                @Html.Partial("./ClassCart", classS)
+                            }
+                        </td>
+                    }
+                </tr>
+                <tr>
+                    <td class="time-slot">13:30 - 15:00</td>
+                    @for (var i = 0; i < 7; i++)
+                    {
+                        <td>
+                            @foreach (var classS in @Model.Where(x => x.ClassType.Key == "MAIN-CLASS" && x.ClassTimeId.Key == "13:30-15:00" && x.TimeSchedule.Date == dates[i](x.FromDate).Date))
+                            {
+                                @Html.Partial("./ClassCart", classS)
+                            }
+                        </td>
+                    }
+                </tr>
+                <tr>
+                    <td class="time-slot">15:30 - 17:00</td>
+                    @for (var i = 0; i < 7; i++)
+                    {
+                        <td>
+                            @foreach (var classS in @Model.Where(x => x.ClassType.Key == "MAIN-CLASS" && x.ClassTimeId.Key == "13:30-15:00" && x.TimeSchedule.Date == dates[i](x.FromDate).Date))
+                            {
+                                @Html.Partial("./ClassCart", classS)
+                            }
+                        </td>
+                    }
+                </tr>
+                <tr>
+                    <td class="time-slot">18:15 - 19:45</td>
+                    @for (var i = 0; i < 7; i++)
+                    {
+                        <td>
+                            @foreach (var classS in @Model.Where(x => x.ClassType.Key == "MAIN-CLASS" && x.ClassTimeId.Key == "18:15-19:45" && x.TimeSchedule.Date == dates[i](x.FromDate).Date))
+                            {
+                                @Html.Partial("./ClassCart", classS)
+                            }
+                        </td>
+                    }
+                </tr>
+                <tr>
+                    <td class="time-slot">19:50 - 21:20</td>
+                    @for (var i = 0; i < 7; i++)
+                    {
+                        <td>
+                            @foreach (var classS in @Model.Where(x => x.ClassType.Key == "MAIN-CLASS" && x.ClassTimeId.Key == "19:50-21:20" && x.TimeSchedule.Date == dates[i](x.FromDate).Date))
+                            {
+                                @Html.Partial("./ClassCart", classS)
+                            }
+                        </td>
+                    }
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="FreeTalk" class="tabcontent">
+        <h3>Free-Talk</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Khung giờ</th>
+                    <th>Thứ Hai</th>
+                    <th>Thứ Ba</th>
+                    <th>Thứ Tư</th>
+                    <th>Thứ Năm</th>
+                    <th>Thứ Sáu</th>
+                    <th>Thứ Bảy</th>
+                    <th>Chủ Nhật</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="time-slot">8:50 - 10:20</td>
+                    <td>
+                        @for (var i = 0; i < 7; i++)
+                        {
+                            @Html.Partial("./ClassCart", @Model.FirstOrDefault(x => x.ClassType.Key == "FREE-TALK" && x.ClassTimeId.Key == "08:50-10:20" && x.TimeSchedule.Date == dates[i](x.FromDate).Date))
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td class="time-slot">10:30 - 12:00</td>
+                    <td>
+                        @for (var i = 0; i < 7; i++)
+                        {
+                            @Html.Partial("./ClassCart", @Model.FirstOrDefault(x => x.ClassType.Key == "FREE-TALK" && x.ClassTimeId.Key == "10:30-12:00" && x.TimeSchedule.Date == dates[i](x.FromDate).Date))
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td class="time-slot">13:30 - 15:00</td>
+                    <td>
+                        @for (var i = 0; i < 7; i++)
+                        {
+                            @Html.Partial("./ClassCart", @Model.FirstOrDefault(x => x.ClassType.Key == "FREE-TALK" && x.ClassTimeId.Key == "13:30-15:00" && x.TimeSchedule.Date == dates[i](x.FromDate).Date))
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td class="time-slot">15:30 - 17:00</td>
+                    <td>
+                        @for (var i = 0; i < 7; i++)
+                        {
+                            @Html.Partial("./ClassCart", @Model.FirstOrDefault(x => x.ClassType.Key == "FREE-TALK" && x.ClassTimeId.Key == "15:30-17:00" && x.TimeSchedule.Date == dates[i](x.FromDate).Date))
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td class="time-slot">18:15 - 19:45</td>
+                    <td>
+                        @for (var i = 0; i < 7; i++)
+                        {
+                            @Html.Partial("./ClassCart", @Model.FirstOrDefault(x => x.ClassType.Key == "FREE-TALK" && x.ClassTimeId.Key == "18:15-19:45" && x.TimeSchedule.Date == dates[i](x.FromDate).Date))
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td class="time-slot">19:50 - 21:20</td>
+                    <td>
+                        @for (var i = 0; i < 7; i++)
+                        {
+                            @Html.Partial("./ClassCart", @Model.FirstOrDefault(x => x.ClassType.Key == "FREE-TALK" && x.ClassTimeId.Key == "19:50-21:20" && x.TimeSchedule.Date == dates[i](x.FromDate).Date))
+                        }
+                </tr>
+                </td>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="SkillsActivities" class="tabcontent">
+        <h3>Skills & Activities</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Khung giờ</th>
+                    <th>Thứ Hai</th>
+                    <th>Thứ Ba</th>
+                    <th>Thứ Tư</th>
+                    <th>Thứ Năm</th>
+                    <th>Thứ Sáu</th>
+                    <th>Thứ Bảy</th>
+                    <th>Chủ Nhật</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="time-slot">8:50 - 10:20</td>
+                    @for (var i = 0; i < 7; i++)
+                    {
+                        <td>
+                            @Html.Partial("./ClassCart", @Model.FirstOrDefault(x => x.ClassType.Key == "SKILLACTIVITIES" && x.ClassTimeId.Key == "08:50-10:20" && x.TimeSchedule.Date == dates[i](x.FromDate).Date))
+                        </td>
+                    }
+                </tr>
+                <tr>
+                    <td class="time-slot">10:30 - 12:00</td>
+                    @for (var i = 0; i < 7; i++)
+                    {
+                        <td>
+                            @Html.Partial("./ClassCart", @Model.FirstOrDefault(x => x.ClassType.Key == "SKILLACTIVITIES" && x.ClassTimeId.Key == "10:30-12:00" && x.TimeSchedule.Date == dates[i](x.FromDate).Date))
+                        </td>
+                    }
+                </tr>
+                <tr>
+                    <td class="time-slot">13:30 - 15:00</td>
+                    @for (var i = 0; i < 7; i++)
+                    {
+                        <td>
+                            @Html.Partial("./ClassCart", @Model.FirstOrDefault(x => x.ClassType.Key == "SKILLACTIVITIES" && x.ClassTimeId.Key == "13:30-15:00" && x.TimeSchedule.Date == dates[i](x.FromDate).Date))
+                        </td>
+                    }
+                </tr>
+                <tr>
+                    <td class="time-slot">15:30 - 17:00</td>
+                    @for (var i = 0; i < 7; i++)
+                    {
+                        <td>
+                            @Html.Partial("./ClassCart", @Model.FirstOrDefault(x => x.ClassType.Key == "SKILLACTIVITIES" && x.ClassTimeId.Key == "15:30-17:00" && x.TimeSchedule.Date == dates[i](x.FromDate).Date))
+                        </td>
+                    }
+                </tr>
+                <tr>
+                    <td class="time-slot">18:15 - 19:45</td>
+                    @for (var i = 0; i < 7; i++)
+                    {
+                        <td>
+                            @Html.Partial("./ClassCart", @Model.FirstOrDefault(x => x.ClassType.Key == "SKILLACTIVITIES" && x.ClassTimeId.Key == "18:15-19:45" && x.TimeSchedule.Date == dates[i](x.FromDate).Date))
+                        </td>
+                    }
+                </tr>
+                <tr>
+                    <td class="time-slot">19:50 - 21:20</td>
+                    @for (var i = 0; i < 7; i++)
+                    {
+                        <td>
+                            @Html.Partial("./ClassCart", @Model.FirstOrDefault(x => x.ClassType.Key == "SKILLACTIVITIES" && x.ClassTimeId.Key == "19:50-21:20" && x.TimeSchedule.Date == dates[i](x.FromDate).Date))
+                        </td>
+                    }
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+        document.getElementById("defaultOpen").click();
+    </script>
+
+</body>
+</html>

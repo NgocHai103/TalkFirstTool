@@ -1,0 +1,55 @@
+﻿@using TF_ClassRegistry.Helper
+@model ClassModel
+
+@{
+    var id = Guid.NewGuid().ToString();
+    var classId = @Model?.Id;
+    var key = @Model?.ClassType?.Key;
+    var time = @Model?.ClassTimeId?.Key;
+    var date = (int?)@Model?.TimeSchedule.DayOfWeek ?? 0;
+    var syllabusId = @Model?.SyllabusId.Key ?? "";
+    var roomColor = @Model?.Room?.Configuration?.color ?? "#FFFFFF"; // Default color if null
+    var border = @Model != null && @Model.IsRegistried ? "5px solid green" : "";
+}
+
+@if (Model != null)
+{
+    <div class="container mt-1">
+        <div id="classCard_@id" class="card" style="background-color: @roomColor; cursor: pointer;border: @border">
+            <div class="card-body" style="font-size:9px;height:120px;width:180px;overflow:hidden;">
+                <h6 class="card-title">@Model?.SubClass?.Label</h6>
+                <p class="card-text">@Model?.SyllabusId?.Label</p>
+                <p class="card-text">@Model?.TeacherId?.Label</p>
+                <p class="card-text">@Model?.Room?.Label</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("classCard_@id").addEventListener('click', function () {
+            fetch('/api/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id: '@classId', key: '@key', time: '@time', date: @date, syllabusId: '@syllabusId'  })
+            })
+                .then(response => response.json())
+                .then(response => {
+                    if (response.code === "200") {
+                        if (response.data.registried) {
+                            this.style.border = '5px solid green';
+                        } else {
+                            this.style.border = 'none';
+                        }
+                    }
+                    if (response.code === "500") {
+                        alert(response.message);
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        });
+    </script>
+}
