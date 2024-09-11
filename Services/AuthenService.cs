@@ -16,7 +16,7 @@ public class AuthenService : IAuthenService
         _apiHelper = apiHelper;
     }
 
-    public async ValueTask<string> AuthenticateAndGetToken(string username, string password, bool isSave = true)
+    public async ValueTask<string?> AuthenticateAndGetToken(string username, string password, bool isSave = true)
     {
         try
         {
@@ -30,14 +30,14 @@ public class AuthenService : IAuthenService
                     StaticData.Tokens[username] = response?.Data.Token;
                 }
 
-                return response?.Data.Token;
+                return response?.Data?.Token;
             }
-            return default;
         }
         catch (Exception ex)
         {
             _logger.LogInformation(ex.Message);
-            throw;
         }
+
+        return default;
     }
 }

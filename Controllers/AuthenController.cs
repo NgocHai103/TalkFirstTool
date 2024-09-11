@@ -26,8 +26,8 @@ public class AuthenController : Controller
         {
             if (username.IsNullOrEmpty() || password.IsNullOrEmpty())
             {
-                ViewBag.Error = "Invalid username or password";
-                return View();
+                TempData["Error"] = "Invalid username or password";
+                return RedirectToAction("Index", "Authen");
             }
 
             var token = await _authenService.AuthenticateAndGetToken(username, password);
@@ -35,13 +35,12 @@ public class AuthenController : Controller
             if (!string.IsNullOrEmpty(token))
             {
                 _httpContextAccessor.HttpContext.Session.SetString("AccessToken", token);
-
                 return RedirectToAction("Index", "Home");
             }
             else
             {
-                ViewBag.Error = "Invalid username or password";
-                return View();
+                TempData["Error"] = "Invalid username or password";
+                return RedirectToAction("Index", "Authen");
             }
         }
         catch

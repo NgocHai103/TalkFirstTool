@@ -49,7 +49,7 @@ public class ApiHelper
         }
 
         var response = await _httpClient.PostAsync(url, content);
-        //_ = response.EnsureSuccessStatusCode();
+        var code = response.EnsureSuccessStatusCode();
         var responseContent = await response.Content.ReadAsStringAsync();
 
         return responseContent.Deserialize<T>();
