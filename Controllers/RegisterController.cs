@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using TF_ClassRegistry.Data;
+using TF_ClassRegistry.Helper;
 using TF_ClassRegistry.Models;
 
 namespace TF_ClassRegistry.Controllers;
@@ -14,11 +15,21 @@ public class RegisterController : ControllerBase
         _httpContextAccessor = httpContextAccessor;
     }
 
+  
+
     [HttpPost]
     public async ValueTask<ResponseBase<RegistryReponse>> Add(RegistryRequest request)
     {
         try
         {
+        //    if(DateTime.UtcNow.AddHours(7).DayOfWeek is not DayOfWeek.Saturday or DayOfWeek.Sunday)
+        //    {
+        //        return   new ResponseBase<RegistryReponse>
+        //        {
+        //            Code = "500",
+        //            Message = "Hôm nay éo đc đk!"
+        //        }; ;
+        //    }    
             var jwtToken = _httpContextAccessor.HttpContext.Session.GetString("AccessToken");
             var user = StaticData.Tokens.FirstOrDefault(x => x.Value == jwtToken);
 

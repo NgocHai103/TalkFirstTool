@@ -32,8 +32,8 @@ builder.Services.AddQuartz(q =>
     q.AddTrigger(opts => opts
         .ForJob(jobKey)
         .WithIdentity("RegistryJob-trigger")
-        .WithCronSchedule("0 05 08 ? * SUN *", x => x
-        //.WithCronSchedule("0 02 14 ? * TUE *", x => x
+        .WithCronSchedule("0 0 9 ? * SUN *", x => x
+        //.WithCronSchedule("0 41 13 ? * MON *", x => x
         .InTimeZone(TimeZoneInfo.FindSystemTimeZoneById("Asia/Ho_Chi_Minh"))));
 });
 

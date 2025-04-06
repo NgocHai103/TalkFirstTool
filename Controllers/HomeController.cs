@@ -23,8 +23,11 @@ public class HomeController : Controller
         {
             return Redirect("Authen");
         }
-        //var url = "https://service.talkfirst.vn/v1/api/student/lesson/current-week?";
-        var url = "https://service.talkfirst.vn/v1/api/student/lesson/next-week?";
+        var url = "https://service.talkfirst.vn/v1/api/student/lesson/current-week?";
+        if (DateTime.UtcNow.AddHours(7).DayOfWeek is DayOfWeek.Saturday or DayOfWeek.Sunday)
+        {
+            url = "https://service.talkfirst.vn/v1/api/student/lesson/next-week?";
+        }
         var response = await _apiHelper.GetAsync<ResponseBase<List<ClassModel>>>(url);
 
         var jwtToken = _httpContextAccessor.HttpContext.Session.GetString("AccessToken");
@@ -50,5 +53,19 @@ public class HomeController : Controller
     public IActionResult Error()
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    }
+
+    [HttpGet]
+    public IActionResult Classes(string key)
+    {
+        var serializedData = StaticData.Classes.Serialize();
+        return Ok((object)serializedData);
+    }
+
+    [HttpGet]
+    public IActionResult CleanClasses(string key)
+    {
+        StaticData.Classes.Clear();
+        return Ok("ok");
     }
 }

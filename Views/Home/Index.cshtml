@@ -83,7 +83,9 @@
 <body>
 
     @* <h2>Nhật tay vịn!!</h2> *@
-
+    
+    <h3>@DateTime.UtcNow.AddHours(7).DayOfWeek.ToString()</h3>
+    <span>The next week's classes are going to be updated automatically at the weekend</span>
     <div class="tab">
         <button class="tablinks" onclick="openTab(event, 'MainClass')" id="defaultOpen">Main-Class</button>
         <button class="tablinks" onclick="openTab(event, 'FreeTalk')">Free-Talk</button>

@@ -21,7 +21,6 @@ public class RegistryJob : IJob
 
     public async Task Execute(IJobExecutionContext context)
     {
-
         StaticData.RegistryResults.Clear();
 
         foreach (var user in StaticData.Users)
@@ -29,22 +28,42 @@ public class RegistryJob : IJob
             var token = await _authenService.AuthenticateAndGetToken(user.Key, user.Value, false);
 
             var r = new List<RegistryResult>();
-            foreach (var cl in StaticData.Classes[user.Key])
+
+            if(StaticData.Classes.ContainsKey(user.Key))
             {
-                _logger.LogInformation("[Job] Registry the class {id}", cl.Id);
-
-                var response = await _apiHelper.PostAsync<ResponseBase<dynamic>>("https://service.talkfirst.vn/v1/api/student/lesson/register", new { lessonId = cl.Id }, true, token);
-
-                r.Add(new RegistryResult
+                foreach (var cl in StaticData.Classes[user.Key])
                 {
-                    ClassInfo = cl,
-                    Response = response
-                });
+                    _logger.LogInformation("[Job] Registry the class {id}", cl.Id);
 
-                _logger.LogInformation("[Job] Response : {r}", response.Serialize());
+                    try
+                    {
+                        var response = await _apiHelper.PostAsync<ResponseBase<dynamic>>("https://service.talkfirst.vn/v1/api/student/lesson/register", new { lessonId = cl.Id }, true, token);
 
-                StaticData.RegistryResults[user.Key] = r;
-            }
+                        if (response != null)
+                        {
+                            r.Add(new RegistryResult
+                            {
+                                ClassInfo = cl,
+                                Response = response
+                            });
+
+                            _logger.LogInformation("[Job] Response : {r}", response.Serialize());
+
+                            StaticData.RegistryResults[user.Key] = r;
+                        }
+                        else
+                        {
+                            _logger.LogInformation("[Job] Response failed : {r}", response.Serialize());
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogInformation("[Job] Register Error : {message}", ex.Message);
+                    }
+                }
+            }    
+          
         }
 
         StaticData.Classes.Clear();
